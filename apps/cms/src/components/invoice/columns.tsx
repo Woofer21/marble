@@ -69,13 +69,14 @@ export const invoiceTableColumns: ColumnDef<Invoice>[] = [
 
 function statusToType(
   status: InvoiceStatus,
-): "positive" | "negative" | "neutral" {
+): "positive" | "negative" | "neutral" | "pending" {
   switch (status) {
     case InvoiceStatus.PAID:
       return "positive";
     case InvoiceStatus.PENDING:
       return "neutral";
     case InvoiceStatus.PARTIALLY_REFUNDED:
+      return "pending";
     case InvoiceStatus.REFUNDED:
       return "negative";
   }
