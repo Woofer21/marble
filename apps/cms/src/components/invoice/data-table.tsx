@@ -46,8 +46,8 @@ export function InvoiceDataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4 justify-between border-x">
-        {/* <div className="relative">
+      {/* <div className="flex items-center py-4 justify-between border-x">
+        <div className="relative">
           <SearchIcon
             size={16}
             className="text-muted-foreground size-4 absolute top-3 left-3"
@@ -70,10 +70,10 @@ export function InvoiceDataTable<TData, TValue>({
               <span className="sr-only">Clear search</span>
             </button>
           )}
-        </div> */}
+        </div>
 
-        {/* TODO: Add filter by date */}
-      </div>
+        TODO: Add filter by date
+      </div> */}
 
       <div className="border-x border-y">
         <Table>

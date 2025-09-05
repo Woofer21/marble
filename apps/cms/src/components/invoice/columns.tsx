@@ -1,16 +1,22 @@
 "use client";
 
 import { Badge } from "@marble/ui/components/badge";
-import { cn } from "@marble/ui/lib/utils";
 import type { ColumnDef } from "@tanstack/react-table";
 import TableActions from "./table-actions";
+
+export enum InvoiceStatus {
+  PAID = 0,
+  PENDING = 1,
+  PARTIALLY_REFUNDED = 2,
+  REFUNDED = 3,
+}
 
 export type Invoice = {
   id: string;
   plan: string;
   amount: number;
-  status: "Success" | "Failed";
-  date: string;
+  status: InvoiceStatus;
+  date: Date;
 };
 
 export const invoiceTableColumns: ColumnDef<Invoice>[] = [
@@ -26,7 +32,7 @@ export const invoiceTableColumns: ColumnDef<Invoice>[] = [
       return new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
-      }).format(amount);
+      }).format(amount / 100);
     },
   },
   {
@@ -35,16 +41,7 @@ export const invoiceTableColumns: ColumnDef<Invoice>[] = [
     cell: ({ row }) => {
       const status = row.original.status;
       return (
-        <Badge
-          variant="outline"
-          className={cn("rounded-[6px] w-full text-center justify-center", {
-            "bg-emerald-50 text-emerald-500 border-emerald-300":
-              status === "Success",
-            "bg-red-50 text-red-500 border-red-300": status === "Failed",
-          })}
-        >
-          {status === "Success" ? "Success" : "Failed"}
-        </Badge>
+        <Badge variant={statusToType(status)}>{statusToString(status)}</Badge>
       );
     },
   },
@@ -69,3 +66,30 @@ export const invoiceTableColumns: ColumnDef<Invoice>[] = [
     },
   },
 ];
+
+function statusToType(
+  status: InvoiceStatus,
+): "positive" | "negative" | "neutral" {
+  switch (status) {
+    case InvoiceStatus.PAID:
+      return "positive";
+    case InvoiceStatus.PENDING:
+      return "neutral";
+    case InvoiceStatus.PARTIALLY_REFUNDED:
+    case InvoiceStatus.REFUNDED:
+      return "negative";
+  }
+}
+
+export function statusToString(status: InvoiceStatus): string {
+  switch (status) {
+    case InvoiceStatus.PAID:
+      return "Paid";
+    case InvoiceStatus.PENDING:
+      return "Pending";
+    case InvoiceStatus.PARTIALLY_REFUNDED:
+      return "Partially Refunded";
+    case InvoiceStatus.REFUNDED:
+      return "Refunded";
+  }
+}

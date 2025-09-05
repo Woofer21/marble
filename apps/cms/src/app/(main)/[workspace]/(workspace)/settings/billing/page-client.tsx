@@ -17,6 +17,7 @@ const UpgradeModal = dynamic(() =>
   import("@/components/billing/upgrade-modal").then((mod) => mod.UpgradeModal),
 );
 
+import InvoiceTable from "@/components/invoice/invoice-table";
 import { usePlan } from "@/hooks/use-plan";
 import { useWorkspace } from "@/providers/workspace";
 
@@ -117,12 +118,9 @@ function PageClient() {
               </div>
               <div className="flex items-center gap-3">
                 {isOwner && (
-                  <>
-                    <Button onClick={() => setShowUpgradeModal(true)}>
-                      {subscription?.plan ? "Change Plan" : "Upgrade"}
-                    </Button>
-                    <Button variant="outline">View invoices</Button>
-                  </>
+                  <Button onClick={() => setShowUpgradeModal(true)}>
+                    {subscription?.plan ? "Change Plan" : "Upgrade"}
+                  </Button>
                 )}
               </div>
             </div>
@@ -219,6 +217,19 @@ function PageClient() {
             </CardContent>
           </Card>
         </div>
+
+        <Card>
+          <CardContent className="px-6 py-10">
+            <div className="mb-2">
+              <h1 className="text-2xl font-semibold">Invoices</h1>
+              <p className="text-sm text-muted-foreground">
+                All of your past invoices
+              </p>
+            </div>
+
+            {isOwner && <InvoiceTable />}
+          </CardContent>
+        </Card>
 
         <UpgradeModal
           isOpen={showUpgradeModal}
