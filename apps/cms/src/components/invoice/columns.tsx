@@ -55,11 +55,11 @@ export const invoiceTableColumns: ColumnDef<Invoice>[] = [
   },
   {
     id: "actions",
-    header: () => <div className="flex justify-end pr-10">Actions</div>,
+    header: () => <div className="flex justify-end">Actions</div>,
     cell: ({ row }) => {
       const invoice = row.original;
       return (
-        <div className="flex justify-end pr-10">
+        <div className="flex justify-end">
           <TableActions {...invoice} />
         </div>
       );

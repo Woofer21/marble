@@ -75,7 +75,7 @@ export function InvoiceDataTable<TData, TValue>({
         TODO: Add filter by date
       </div> */}
 
-      <div className="border-x border-y">
+      <div className="border rounded-md">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -114,10 +114,7 @@ export function InvoiceDataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-96 text-center"
-                >
+                <TableCell colSpan={columns.length} className="text-center">
                   No invoices found.
                 </TableCell>
               </TableRow>
